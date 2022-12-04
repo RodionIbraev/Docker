@@ -19,7 +19,9 @@ class CreationSensorView(APIView):
 
     def post(self, request):  # добавление сенсора
         serializer = SensorSerializer(data=request.data)
-        serializer.save()
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
         return Response(serializer.data)
 
 
